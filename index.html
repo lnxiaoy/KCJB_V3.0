@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="force-renderer" content="webkit">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>开仓进宝</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
+    <link href="css/none-responsive.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body style="background:url(img/back.jpg) no-repeat">
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom:0;height:40px;">
+            <div>
+                <div class="navbar-header">
+                    <!-- 导航图标，要改 -->
+                    <a class="navbar-brand" href="#" style="padding-top:10px;padding-bottom:15px;padding-left:25px;padding-right:10px;">
+                        <img src="img/logo.png" style="height:30px;">
+                    </a>
+                </div>
+                <!-- 具体导航栏 -->
+                <div>
+                    <ul class="nav navbar-nav" style="padding-top:15px;">
+                        <label style='padding-right:10px;'>开仓进宝</label>
+                        <a href="http://rili.jin10.com/" target="_blank"><img src="img/Monitor.png">
+                            <span>财经日历</span>
+                        </a>
+                        <a href="http://www.jin10.com/jin10.com.php" target="_blank"><img src="img/Monitor.png">
+                            <span>财经数据</span>
+                        </a>
+                        <!-- 排班表弹出来模态框 模态框11-->
+                        <a href="#" data-toggle="modal" data-target="#myModal11" style='padding-left:5px;'>排班表</a>
+                        <!-- 此处希望直接收藏，而不是弹出警告框 -->
+                        <a href="javascript:alert('请按Ctrl+D加入收藏');" style='padding-left:5px;'>加入收藏</a>
+                        <a href="/content/开仓进宝.url" style='padding-left:5px;margin-right:10px;'>桌面快捷</a>
+                        <span>分享到:</span>
+                        <a onClick="dofristshare('sina')"><i class="fa fa-weibo fa-lg" alt="新浪微博"></i>
+                        </a>
+                        <a onClick="dofristshare('tx')"><i class="fa fa-tencent-weibo fa-lg" alt="腾讯微博"></i>
+                        </a>
+                        <a onClick="dofristshare('rr')"><i class="fa fa-renren fa-lg" alt="人人网"></i>
+                        </a>
+                        <a onClick="dofristshare('qzone')"><i class="fa fa-qq fa-lg" alt="qq空间"></i>
+                        </a>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li style="width:300px;margin-top:12px;">
+                            <!-- marquee滚动条 -->
+                            <marquee scrollamount="3" onMouseOut="this.start()" onMouseOver="this.stop()">
+                                【友情提示】投资有风险，操作需谨慎！
+                            </marquee>
+                        </li>
+                        <li style="background:url(img/kf_bg.png) no-repeat 0 0;height:25px;width:75px;margin-top:10px;">
+                            <a href="tencent://message/?uin=2853673257&site=qq&menu=yes" style="padding:0 0 15px 20px;"><span>客服咚咚</span>
+                            </a>
+                        </li>
+                        <li style="background:url(img/kf_bg.png) no-repeat 0 0;height:25px;width:75px;margin-top:10px;">
+                            <a href="tencent://message/?uin=2853673255&site=qq&menu=yes" style="padding:0 0 15px 20px;"><span>客服小瑾</span>
+                            </a>
+                        </li>
+                        <li style="background:url(img/kf_bg.png) no-repeat 0 0;height:25px;width:75px;margin-top:10px;">
+                            <a href="tencent://message/?uin=2853673256&site=qq&menu=yes" style="padding:0 0 15px 20px;"><span>客服小喆</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" id="dropdown" data-toggle="dropdown" role="button" aria-expanded="false">欢迎，<span id="userddd">xx用户</span><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="javascript:;" onclick='js_method()' data-toggle='modal' data-target='#personalProfile'>个性化设置</a></li>
+                                <!-- 个性化设置要填进去 -->
+                                <!-- 修改密码模态框1 -->
+                                <li><a href="javascript:;" onclick='js_method()' data-toggle="modal" data-target="#myModal1">修改密码</a></li>
+                                <li class="divider"></li>
+                                <li><a id="logout" style='cursor:pointer'>注销</a></li>
+                                <!-- 积分动态添加 -->
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- 修改密码模态框 myModal1 -->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style='font-size:25px;'>&times;</span></button>
+                    <h4 class="modal-title">密码修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" name="myLogup">
+                        <div class="form-group has-feedback" style='margin-bottom:0px;' id='passOld'>
+                            <label class="col-sm-2 control-label">旧密码</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" placeholder="请输入旧密码" name="passwordOld" id='passOld' required>
+                                <span class='glyphicon glyphicon-remove form-control-feedback' aria-hidden='true'></span>
+                                <span class='glyphicon glyphicon-ok form-control-feedback' aria-hidden='true'></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5 col-sm-offset-2"><span id='passOld' style='padding-right:10px;'></span></div>
+                        </div>
+                        <div class="form-group has-feedback" style='margin-bottom:0px;' id='passId'>
+                            <label class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" placeholder="请输入新密码 6~20位" name="password" id='pass' required>
+                                <span class='glyphicon glyphicon-remove form-control-feedback' aria-hidden='true'></span>
+                                <span class='glyphicon glyphicon-ok form-control-feedback' aria-hidden='true'></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5 col-sm-offset-2"><span id='pass1' style='padding-right:10px;'></span></div>
+                        </div>
+                        <div class="form-group has-feedback" style='margin-bottom:0px;' id='pass2Id'>
+                            <label for="" class="col-sm-2 control-label">确认密码</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" placeholder="再输一次新密码" name="repeat" id='passsure' required>
+                                <span class='glyphicon glyphicon-remove form-control-feedback' aria-hidden='true'></span>
+                                <span class='glyphicon glyphicon-ok form-control-feedback' aria-hidden='true'></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5 col-sm-offset-2"><span id='pass2' style='padding-right:10px;'></span></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <input type="button" id="cancelChange" class="btn btn-default" value="取消修改">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="button" id="sureChange" class="btn btn-primary" value="确认修改">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 送礼物模态框 -->
+    <div class="modal fade" id="myModal12" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">送礼物</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" novalidate>
+                        <!-- novalidate取消表单自动提示框 -->
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">送给谁</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="sendto" id="giftto" disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">选择礼物</label>
+                            <div class="col-sm-7">
+                                <img src="img/vip1.gif" />
+                                <input type="radio" name="cost">
+                                <img src="img/vip2.gif" />
+                                <input type="radio" name="cost">
+                                <img src="img/vip3.gif" />
+                                <input type="radio" name="cost">
+                                <img src="img/FlashVarsip4.gif" />
+                                <input type="radio" name="cost">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">捎带一句话</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="bypass">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 pull-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary" id="sendgiftto">发送</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--     <div style="height:400px;width:400px;background:#66cc66;position:absolute;left:100px;top:100px;z-index:1;"></div>
+ -->
+    <!-- 喊单订阅  左下角弹出的模态框-->
+    <div class="modal fade" id="modallist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">喊单订阅</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group col-sm-7 col-sm-offset-2" id="subscribed">
+                            <!-- <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1天（40积分）
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 7天（160积分）
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 30天（480积分）
+                            </label> -->
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 pull-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary" id="dingyue">订阅</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- 左下角，喊单明细模态框 订阅过的人能看见 每次只是显示一个老师喊单明细-->
+    <div class="modal fade" id="modaltable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">喊单明细</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="display" cellspacing="0" width="100%" id="modaltable1">
+                        <thead>
+                            <tr>
+                                <th>单号</th>
+                                <!-- id -->
+                                <th>分析师</th>
+                                <!-- FA -->
+                                <th>报价类型</th>
+                                <!-- product -->
+                                <th>开仓类型</th>
+                                <!-- state -->
+                                <th>开仓点位</th>
+                                <th>开仓时间</th>
+                                <!-- openTime -->
+                                <th>止盈价</th>
+                                <!-- upPrice -->
+                                <th>止损价</th>
+                                <!-- lowPrice -->
+                                <th>平仓点位</th>
+                                <th>平仓时间</th>
+                                <!-- closeTime -->
+                                <th>盈亏点数</th>
+                                <!-- benefit -->
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+                        <tbody id='handanTable'>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 排班表modal -->
+    <div class="modal fade" id="myModal11" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style='margin-left:500px;'>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style='font-size:25px;'>&times;</span></button>
+                    <h4 class="modal-title">排班表</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="img/workArrange.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //个性化设置模态框 -->
+    <div class="modal fade" id='personalProfile' tabindex="-1" role='dialog' aria-labelledbt="myModalLabel" aria-hidden='true'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style='font-size:25px;'>&times;</span></button>
+                    <h4 class="modal-title">个性化设置</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">关闭行情提示音
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">关闭在线喊单提示音
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type='checkbox' value=''>关闭开始投票提示音
+                                </label>
+                            </div>
+                            <div class="col-sm-2" style='padding-left:0px;'>
+                                <button class='btn btn-default'>取消</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class='btn btn-info'>保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 插入视频 -->
+    <div class="col-xs-5" style="padding-right:5px;">
+        <!-- src="http://yy.com/s/84010887/84010887/yyscene.swf" -->
+        <div width="100%" height="350px">
+            <button class='btn btn-sm btn-primary' style='position:absolute;top:315px;left:20px;' id='Reload'>刷新</button>
+            <div width="100%" height="350px" style='background:black;' id='videoBack'>
+                <embed src='' bgcolor="#000000" width="100%" height="350px" align="middle" allowscriptaccess="always" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://get.adobe.com/cn/flashplayer/" wmode="Opaque" hiden='no' />
+            </div>
+        </div>
+        <!-- 左下角喊单详情 当天 本月 本周，改变tbody里面的内容 -->
+        <div role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">行情提醒</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" id="getday">当天</a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab" id="getweek">本周</a></li>
+                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab" id="getlastweek">上周</a></li>
+                <li role="presentation"><a href="#dangyue" aria-controls="dangyue" role="tab" data-toggle="tab" id="getmonth">当月</a></li>
+                <li role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab" id="getall">全部</a></li>
+            </ul>
+            <!-- 显示面板内自动加载到最新消息 -->
+            <div class="tab-content" id="resize" style="overflow:auto;border:1px solid #ccc;min-height:100px;">
+                <!-- 行情提醒面板 -->
+                <div role="tabpanel" class="tab-pane active" id="home"></div>
+                <div role="tabpanel" class="tab-pane" id="profile">
+                    <table class="table " ng-controller="day">
+                        <!-- 当天 -->
+                        <thead>
+                            <td>姓名</td>
+                            <td>喊单数</td>
+                            <td>成功率</td>
+                            <td>盈亏金额</td>
+                            <td>明细</td>
+                        </thead>
+                        <tbody id='danTapNow'></tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="messages">
+                    <table class=" table">
+                        <!-- 本周 -->
+                        <thead>
+                            <td>姓名</td>
+                            <td>喊单数</td>
+                            <td>成功率</td>
+                            <td>盈亏金额</td>
+                            <td>明细</td>
+                        </thead>
+                        <tbody id="danTapWeek"></tbody>
+                    </table>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="settings">
+                    <table class=" table">
+                        <!-- 上周 -->
+                        <thead>
+                            <td>姓名</td>
+                            <td>喊单数</td>
+                            <td>成功率</td>
+                            <td>盈亏金额</td>
+                            <td>明细</td>
+                        </thead>
+                        <tbody id='danTapLast'></tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="dangyue">
+                    <table class=" table">
+                        <!-- 当月 -->
+                        <thead>
+                            <td>姓名</td>
+                            <td>喊单数</td>
+                            <td>成功率</td>
+                            <td>盈亏金额</td>
+                            <td>明细</td>
+                        </thead>
+                        <tbody id='danTapMonth'>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="all">
+                    <table class=" table">
+                        <!-- 全部 -->
+                        <thead>
+                            <td>姓名</td>
+                            <td>喊单数</td>
+                            <td>成功率</td>
+                            <td>盈亏金额</td>
+                            <td>明细</td>
+                        </thead>
+                        <tbody id='danTapAll'></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type='checkbox' id='sideToggle' style="display:none;">
+    <!-- 多选框是干啥的 -->
+    <!-- aside侧边滑动栏 -->
+    <aside>
+        <div class="input-group">
+            <input id="search" name="search" type="text" data-list=".default_list" autocomplete="off" placeholder="搜索" style="width:200px;">
+        </div>
+        <ul class="nav nav-tabs" style="margin-bottom:0px;">
+            <li class="active">
+                <a href="#tab11" data-toggle="tab">用户列表&nbsp;(<span id="status"></span>)</a></li>
+            <!-- 用户列表里的用户数 -->
+            <li><a href="#tab21" data-toggle="tab">客服</a></li>
+        </ul>
+        <div class="tab-content" style="border:1px solid #ccc;min-height:300px;overflow:auto;" id="userh">
+            <div class="tab-pane active" id="tab11">
+                <!-- 默认显示用户列表信息 -->
+                <ul id="userdd" class="list-group vertical default_list"></ul>
+            </div>
+            <div class="tab-pane" id="tab21">
+                <!-- 客服信息 -->
+                <ul id="" class="list-group vertical default_list"></ul>
+            </div>
+        </div>
+        <!-- 三个小功能区 -->
+        <ul class="nav nav-tabs" style="margin-bottom:0px;">
+            <li class="active"><a href="#tab1" data-toggle="tab">红榜</a></li>
+            <li><a href="#tab2" data-toggle="tab">调查</a></li>
+            <li><a href="#tab3" data-toggle="tab">换算</a></li>
+        </ul>
+        <div class="tab-content" style="border:1px solid #ccc;height:100px;">
+            <div class="tab-pane active" id="tab1">
+                <p>消息通知</p>
+            </div>
+            <div class="tab-pane" id="tab2">
+                <button class="btn btn-sm btn-danger">涨<span>54%</span></button>
+                <button class="btn btn-sm btn-default">平<span>23%</span></button>
+                <button class="btn btn-sm btn-success">跌<span>23%</span></button>
+            </div>
+            <div class="tab-pane" id="tab3">
+                <select>
+                    <option value="choose">请选择</option>
+                    <option value="yin">汇通银</option>
+                    <option value="tong">汇通铜</option>
+                    <option value="oil">汇通油</option>
+                </select>
+                <div class='row' style='margin:0px;margin-bottom:5px;'>
+                    <input placeholder="平台价格" style='width:70px;'>
+                    <span>&hArr;</span>
+                    <input placeholder="外盘价格" style='width:70px;'>
+                </div>
+                <div class="row" style='margin:0px;'>
+                    <button class="btn btn-primary btn-sm">换算</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <!-- 侧边栏点击按钮 -->
+    <label id="sideMenuControl" style="position:absolute;right:0;min-height:80%;width:10px;background-color:rgb(241, 247, 244);z-index:100;opacity: 0.3;" for="sideToggle"></label>
+    <!-- 右侧聊天大厅 -->
+    <div class="col-xs-7" style="padding-left:5px;">
+        <div role="tabpanel" id="wrap">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist" style="min-width:400px;">
+                <li role="presentation" class="active"><a href="#home1" aria-controls="home1" role="tab" data-toggle="tab">在线交流</a></li>
+                <li role="presentation"><a href="#profile1" aria-controls="profile1" role="tab" data-toggle="tab">今日评论</a></li>
+                <li role="presentation"><a href="#messages1" aria-controls="messages1" role="tab" data-toggle="tab">房间介绍</a></li>
+                <li role="presentation"><a href="#settings1" aria-controls="settings1" role="tab" data-toggle="tab">下载中心</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content" id="minh" style="min-height:250px;">
+                <!-- 在线交流 -->
+                <div role="tabpanel" class="tab-pane active" id="home1" style="min-height:250px;">
+                    <div id="historyMsg">
+                        <div style='z-index:10;float:right;'>
+                            <button class='btn btn-info btn-sm'>滚屏</button>
+                            <button class='btn btn-info btn-sm'>清屏</button>
+                        </div>
+                    </div>
+                    <!-- 上面 大厅聊天记录-->
+                    <div id="historyMsg1">
+                    </div>
+                    <!-- 下面 私聊时别人发来的消息-->
+                    <div id="line"></div>
+                    <!-- 线 -->
+                </div>
+                <!-- 今日评论 -->
+                <div role="tabpanel" class="tab-pane" id="profile1" style="min-height:250px;">
+                </div>
+                <!-- 房间介绍 样式有问题 布局会动-->
+                <div role="tabpanel" class="tab-pane" id="messages1" style="min-height:250px;">
+                    <div class='row' style='margin-left:0px;margin-right:0px;'>
+                        <a href="http://bljyzx.com"><h3 class="text-center">保利商品交易中心</h3></a>
+                        <p style="font-size:13px; font-weight:500;">保利商品交易中心有限公司是唯一一个经过省政府，省商务厅双重批复的从事大宗商品交易的交易场所，保利商品交易中心是顺应时代发展，整合行业规则的时代产物，保利商品交易中心严格按照（国发〔2012〕2号）的文件精神，本着“立足现货市场，服务实体经济”的指导精神，严格按照国务院38号，37号文的精神合法合规经营。</p>
+                        <p style="font-size:13px;font-weight:500;">交易中心注册资本5000万元，根据《中华人民共和国公司法》《中华人民共和国合同法》等国家法律法规和政策，运用电子商务信息技术，组织中国境内大宗商品的合法生产和经营，联合工商银行，农业银行，建设银行，中国银行等对资金实行全方位监管，利用电子商务平台，通过互联网直接在线报价、配对，以网上销售、电子购物的方式实现订货和回购交易。</p>
+                        <p style="font-size:13px;font-weight:500;">交易中心与中国农业银行、中国建设银行、中国工商银行、中国银行等多家银行合作，签署第三方资金存管协议，保证广大投资者的资金安全。此合作方式为银行资金三方托管，即交易中心将投资者的交易结算资金交由银行等独立第三方存管，交易中心坚持以客户资金安全为第一准则，，而由存管银行负责投资者交易清算与资金交收。此合作方式从根本上建立起确保投资者交易结算资金安全运作的制度，达到控制行业风险、防范道德风险、保护投资者利益、维护金融稳定的目的。</p>
+                        <p style="font-size:13px;font-weight:500;">交易中心实行会员制，会员由在中华人民共和国境内注册登记，从事大宗商品业务的生产，贸易、金融机构、并具有良好资信的企业法人组成。交易中心为会员和投资者提供的第三方商品电子交易平台，创新性的解决了商品现货场外交易存在的缺乏监管、信用交易的弊端。交易中心作为独立第三方，通过行情发布、保证金交易、无负债结算、集中清算等措施，确保了交易各方资金的安全，交易的实现，信息的公开、公平、公正。</p>
+                    </div>
+                </div>
+                <!-- 下载中心 -->
+                <div role="tabpanel" class="tab-pane" id="settings1" style="min-height:250px;">
+                    <div class="row" style='margin-left:0px;margin-right:0px;'>
+                        <h3 class="text-center">下载资料</h3>
+                        <div>
+                            <p style="font-size:14px;">保利商品交易中心模拟软件win7版&nbsp;&nbsp;&nbsp;&nbsp;<a href="./download/保利商品交易中心模拟软件win7版.exe">点击下载</a></p>
+                            <p style="font-size:14px;">保利商品模拟软件XP版&nbsp;&nbsp;&nbsp;&nbsp;<a href="./download/保利商品模拟软件XP版.exe">点击下载</a></p>
+                            <p style="font-size:14px;">保利商品交易系统正式版Setup_XP(3.0.0.0)&nbsp;&nbsp;&nbsp;&nbsp;<a href="./download/保利商品交易系统正式版Setup_XP(3.0.0.0).exe">点击下载</a></p>
+                            <p style="font-size:14px;">保利商品交易系统正式版Win7(3.0.0.0)&nbsp;&nbsp;&nbsp;&nbsp;<a href="./download/保利商品交易系统正式版Win7(3.0.0.0).exe">点击下载</a></p>
+                            <p style="font-size:14px;">保利商品分析系统客户端&nbsp;&nbsp;&nbsp;&nbsp;<a href="./download/保利商品分析系统客户端.exe">点击下载</a></p>
+                            <img src="./img/andriodDownLoadDouble.png" style="height:200px;display:block;margin:0 auto;" />
+                            <a href="./download/KCJB-V1.0.1.apk" style="text-align:center;">
+                                <p>安卓手机应用软件 </p>
+                            </a>
+                        </div>
+                    </div>
+                    <!--                     <table style="margin-left:0px;margin-bottom:0px;" class="table  table-condensed" ng-controller="download">
+                        <thead>
+                            <td>操作</td>
+                            <td>文档名称</td>
+                            <td>上传时间</td>
+                            <td>详情</td>
+                        </thead>
+                        <tr ng-repeat="item in items">
+                            <td><a href={{item.download}}>下载</a></td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.time}}</td>
+                            <td><a href={{item.detail}}>详情</a></td>
+                        </tr>
+                    </table> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <button id="clearBtn" class="btn-info btn btn-sm">清屏</button>
+                <button class='btn btn-info btn-sm'>滚屏</button>
+                <button id='emoji' class='btn-info btn btn-sm'>表情</button>
+                <button class='btn btn-sm btn-info'>送礼物</button>
+                <!-- <button class="btn-info btn btn-sm" id="gift" data-toggle="modal" data-target="#myModal12">送礼物</button> -->
+                <button class="btn-info btn btn-sm" id="schat">所有人</button>
+                <input type="checkbox" name="qiaoqiao" id="qiaoqiao"><span style="color:#fff">悄悄话</span>
+                <button id="sendBtn" class="btn btn-primary btn-sm pull-right" style="margin-left:2px;">发送</button>
+                <!-- 表情div 还没填内容-->
+                <!-- <div id='emojiWrapper1' style='width:600px;height:200px;position:absolute;bottom:80px;background:pink;display:none;'>
+                    <div style='height:180px;width:600px;background:#cef;position:absolute;top:0px;' id='emojiWrapper2'>
+                    </div>
+                    <div style='position:relative;top:180px;background:white;height:20px;width:60px;float:left;'><a style='cursor:pointer;'>兔斯基</a></div>
+                    <div style='position:relative;top:180px;background:white;height:20px;width:60px;float:left;'><a style='cursor:pointer;'>qq表情</a></div>
+                </div> -->
+                <div id="emojiWrapper" style='width:440px;height:150px;position:absolute;bottom:80px;display:none;background:rgba(161, 243, 224, 0.45)'>
+                </div>
+                <textarea id="messageInput" style="width:100%;height:40px;resize:none;background:initial;border:2px solid #ccc;"></textarea>
+            </div>
+        </div>
+    </div>
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="panel panel-default" id="pingcang" style="display:none;position:absolute;left:400px;top:100px;z-index:1200;">
+            <div class="panel-heading">平仓</div>
+            <div class="panel-body">
+                <form novalidate>
+                    止盈价
+                    <input name="checkUpPrice" type="text"> 止损价
+                    <input name="checkLowPrice" type="text">
+                    <br>
+                    <button class="btn btn-default pull-right" id="cancel">取消</button>
+                    <input type="submit" class="btn btn-primary btn-sm pull-right" value="止损提交" id="ping_checkLow">
+                    <input type="submit" class="btn btn-primary btn-sm pull-right" value="止盈提交" id="ping_checkUp">
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default" id="zengcang" style="display:none;position:absolute;left:400px;top:100px;z-index:1200;">
+            <div class="panel-heading">增仓</div>
+            <div class="panel-body">
+                <form novalidate>
+                    开仓价
+                    <input name="openPrice" type="text"> 止盈价
+                    <input name="checkUpPrice" type="text"> 止损价
+                    <input name="checkLowPrice" type="text">
+                    <br>
+                    <button class="btn btn-default pull-right" id="cancel_add">取消</button>
+                    <input type="submit" class="btn btn-primary btn-sm pull-right" value="提交" id="zeng_submit">
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default" id="jiancang" style="display:none;position:absolute;left:400px;top:100px;z-index:1200;">
+            <div class="panel-heading">减仓</div>
+            <div class="panel-body">
+                <form novalidate>
+                    止盈价
+                    <input name="checkUpPrice" type="text"> 止损价
+                    <input name="checkLowPrice" type="text">
+                    <br>
+                    <button class="btn btn-default pull-right" id="cancel_sub">取消</button>
+                    <input type="submit" class="btn btn-primary btn-sm pull-right" value="止盈提交" id="jian_checkUp">
+                    <input type="submit" class="btn btn-primary btn-sm pull-right" value="止损提交" id="jian_checkLow">
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default" id="chedan" style="display:none;position:absolute;left:400px;top:100px;z-index:1200;">
+            <div class="panel-heading">撤单</div>
+            <div class="panel-body">
+                <form novalidate>
+                    撤单理由：
+                    <input name="reason" type="text" style="width:300px;">
+                    <br>
+                    <button class="btn btn-default pull-right" id="cancel_cancel">取消</button>
+                    <input type="submit" class="btn btn-primary btn-sm pull-right" value="撤单提交" id="chedan_submit">
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default" id="deal" style="display:none;position:absolute;left:400px;top:100px;z-index:1200;">
+            <div class="panel-heading">成交</div>
+            <div class="panel-body">
+                <form novalidate>
+                    开盘价
+                    <input name="openPrice" type="text"> 止盈价
+                    <input name="checkUpPrice" type="text"> 止损价
+                    <input name="checkLowPrice" type="text">
+                    <br>
+                    <button class="btn btn-default pull-right" id="cancel_deal">取消</button>
+                    <input type="submit" class="btn btn-primary btn-sm pull-right" value="提交" id="deal_submit">
+                </form>
+            </div>
+        </div>
+        <!-- 在线喊单模态框 -->
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">在线喊单</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group col-md-12" id="pro">
+                            产品类型：
+                        </div>
+                        <div class="form-group col-md-8" id="billtype">
+                            报价类型：
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <button class="btn-primary btn pull-right" id="bill" style='margin-bottom:0px;'>开仓</button>
+                        </div>
+                        <div class="form-group col-md-12" id="typebill">
+                            开仓类型：
+                            <select>
+                                <option value="now">现价</option>
+                                <option value="gua">挂单</option>
+                            </select>
+                            <select>
+                                <option value="more">买多</option>
+                                <option value="kong">卖空</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            价格设置： 开仓价
+                            <input type="text" style="width:80px;" id="openPrice" min="0"> 止盈价
+                            <input type="text" style="width:80px;" id="checkUpPrice" min="0"> 止损价
+                            <input type="text" style="width:80px;" id="checkLowPrice" min="0">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="checkbox" name="send" id="lobby">发送到直播大厅
+                            <input type="checkbox" name="send" checked="checked" disabled="disabled">发送到我的订阅
+                        </div>
+                    </form>
+                    <table class="display" cellspacing="0" width="100%" id="billtable">
+                        <thead>
+                            <tr>
+                                <th>单号</th>
+                                <th>分析师</th>
+                                <th>报价类型</th>
+                                <th>开仓类型</th>
+                                <th>开仓价</th>
+                                <th>开仓时间</th>
+                                <th>止盈价</th>
+                                <th>止损价</th>
+                                <th>平仓</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <!--  tbody内容用dataTable添加 -->
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 音频标签，发消息声音 不显示-->
+    <audio src="" autoplay="autoplay" style="display:none;"></audio>
+    <div style="position:absolute;height:20px;background-color:#333;bottom:0px;width:100%;text-align:center;color:#aaa;">
+        <span><a href="javascript:;" onclick='js_method()'>天囊投资有限公司|沪ICP备15019763号-1</a></span>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/hichat.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery.hideseek.min.js"></script>
+    <script type="text/javascript" src="js/vendor/rainbow-custom.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery.anchor.js"></script>
+    <script type="text/javascript" src="js/moment.min.js"></script>
+    <script src="js/initializers.js"></script>
+    <script src='js/danOnline.js'></script>
+</body>
+<script type="text/javascript">
+function dofristshare(type) {
+    var title = encodeURIComponent("开仓进宝，财经直播");
+    var link = encodeURIComponent('http://www.59itouzi.com');
+    var image = encodeURIComponent('http://www.baidu.com/img/bdlogo.gif');
+
+    if (type == "sina") {
+        window.open("http://v.t.sina.com.cn/share/share.php?url=" + link + "&title=" + title + "&content=utf8&pic=" + image);
+    }
+    if (type == "tx") {
+        window.open("http://v.t.qq.com/share/share.php?url=" + link + "&title=" + title + "&pic=" + image);
+    }
+    if (type == "qzone") {
+        window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + link + "&title=" + title + "&pics=" + image);
+    }
+    if (type == "rr") {
+        window.open("http://widget.renren.com/dialog/share?resourceUrl=" + link + "&title=" + title + "&pic=" + image);
+    }
+    if (type == "douban") {
+        window.open("http://www.douban.com/recommend/?url=" + link + "&title=" + title + "&image=" + image);
+    }
+
+    return false;
+
+}
+//刷新按钮
+$("#Reload").click(function(event) {
+    /* Act on the event */
+    $("#videoBack").find('embed').remove();
+    $("#videoBack").append("<embed src='http://yy.com/s/84010887/84010887/yyscene.swf' bgcolor='#000000' width='100%' height='350px' align='middle' allowscriptaccess='always' allowfullscreen='true' type='application/x-shockwave-flash' pluginspage='http://get.adobe.com/cn/flashplayer/' wmode='Opaque'></embed>");
+
+
+});
+
+//单击表情按钮显示表情
+ document.getElementById('emoji').addEventListener('click', function(e) {
+     $("#emojiWrapper").css('display', 'block');
+    $("#emojiWrapper").find('img').remove();
+    var emojiContainer = document.getElementById('emojiWrapper'),
+    docFragment = document.createDocumentFragment();
+    for (var i = 69; i > 0; i--) {
+        var emojiItem = document.createElement('img');
+        emojiItem.src = 'content/emoji/' + i + '.gif';
+        emojiItem.title = i;
+        docFragment.appendChild(emojiItem);
+    };
+    emojiContainer.appendChild(docFragment);
+    // e.stopPropagation();//在表情按钮点下时，不会去判断是否点击了body，就是接下来的那段程序  一种方法 
+ }, false);
+
+document.body.addEventListener('click', function(e) {
+     var emojiBtn = document.getElementById('emoji');
+     var emojiWrapper=document.getElementById('emojiWrapper');
+     if(e.target!=emojiWrapper)
+     {
+        emojiWrapper.style.display = 'none';
+     }
+     // if (e.target != emojiBtn) {
+     //    console.log(e.target,emojiBtn);
+     //     emojiWrapper.style.display = 'none';
+     // };
+ });
+
+var browserEvent = function(obj, url, title) {
+    var e = window.event || arguments.callee.caller.arguments[0];
+    var B = {
+        IE: /MSIE/.test(window.navigator.userAgent) && !window.opera,
+        FF: /Firefox/.test(window.navigator.userAgent),
+        OP: !!window.opera
+    };
+    obj.onmousedown = null;
+    if (B.IE) {
+        obj.attachEvent("onmouseup", function() {
+            try {
+                window.external.AddFavorite(url, title);
+                window.event.returnValue = false;
+            } catch (exp) {}
+        });
+    } else {
+        if (B.FF || obj.nodeName.toLowerCase() == "a") {
+            obj.setAttribute("rel", "sidebar"), obj.title = title, obj.href = url;
+        } else if (B.OP) {
+            var a = document.createElement("a");
+            a.rel = "sidebar", a.title = title, a.href = url;
+            obj.parentNode.insertBefore(a, obj);
+            a.appendChild(obj);
+            a = null;
+        }
+    }
+};
+</script>
+
+</html>
